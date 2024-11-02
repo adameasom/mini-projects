@@ -1,0 +1,23 @@
+/* Reset some default browser styling */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  font-family: Arial, sans-serif;
+  color: #333;
+  background-color: #f7f7f7;
+}
+
+#root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 20px;
+}
