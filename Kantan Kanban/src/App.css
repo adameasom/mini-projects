@@ -75,8 +75,12 @@ body {
   border-radius: 4px;
 }
 
-.column button:hover {
+.add-button:hover {
   background-color: rgb(227, 227, 227);
+}
+
+.add-button:disabled {
+  cursor: not-allowed;
 }
 
 .task-item {
@@ -86,7 +90,13 @@ body {
   padding: 10px;
   margin-top: 16px;
   border-radius: 4px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  transition: 0.5s;
+}
+.task-item:hover {
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.5);
+  transform: translateY(-2px);
+
 }
 
 .task-title,
