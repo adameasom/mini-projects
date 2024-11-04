@@ -11,8 +11,8 @@ html, body {
   height: 100%;
   width: 100%;
   font-family: Arial, sans-serif;
-  color: #333;
-  background-color: #f7f7f7;
+  color: rgb(51, 51, 51);
+  background-color: rgb(247, 247, 247);
 }
 
 #root {
