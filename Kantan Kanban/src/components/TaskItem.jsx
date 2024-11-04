@@ -12,7 +12,7 @@ function TaskItem({ task, index, deleteTask }) {
           {...provided.dragHandleProps}
         >
           <span>{task.content}</span>
-          <button onClick={() => deleteTask(task.id)}>Delete</button>
+          <button onClick={() => deleteTask(task.id)}>X</button>
         </div>
       )}
     </Draggable>

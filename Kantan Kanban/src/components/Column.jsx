@@ -21,8 +21,8 @@ function Column({ status, tasks, addTask, deleteTask }) {
                 e.target.reset();
               }}
             >
+              <button type="submit">+</button>
               <input type="text" name="taskInput" placeholder="Add a task" />
-              <button type="submit">Add Task</button>
             </form>
           )}
           {tasks.map((task, index) => (
