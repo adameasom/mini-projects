@@ -14,12 +14,27 @@ function App() {
     localStorage.setItem('taskIdCounter', taskIdCounter);
   }, [tasks, taskIdCounter]);
 
-  const addTask = (content) => {
-    const newTask = {
-      id: taskIdCounter,
-      content,
-      status: 'To Do',
-    };
+  const addTask = ({ title, description }) => {
+    const now = new Date();
+    // Get the components for the formatted date and time
+  const optionsTime = { hour: '2-digit', minute: '2-digit', hour12: false };
+  const optionsDate = { day: '2-digit', month: 'short', year: 'numeric' };
+
+  // Format time and date separately
+  const formattedTime = now.toLocaleTimeString('en-GB', optionsTime);
+  const formattedDate = now.toLocaleDateString('en-GB', optionsDate);
+
+  // Combine them into the desired format
+  const formattedDateTime = `${formattedTime} on ${formattedDate}`;
+
+  const newTask = {
+    id: taskIdCounter,
+    title,
+    description,
+    status: 'To Do',
+    dateCreated: formattedDateTime, // Use the formatted date and time
+  };
+    
     setTasks([...tasks, newTask]);
     setTaskIdCounter(taskIdCounter + 1); // Increment Counter
   };
@@ -30,7 +45,7 @@ function App() {
 
   return (
     <div className="app-container">
-      <h1 className="app-header">Kantan Kanban</h1>
+      <h1 className="app-header">KANTAN KANBAN</h1>
       <div className="columns-container">
         {['To Do', 'In Progress', 'Done'].map((status) => (
           <Column
