@@ -1,7 +1,7 @@
 // App.jsx
 import React, { useState, useEffect } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
-import Column from './Column';
+import Column from './components/Column';
 import './App.css';
 
 function App() {
