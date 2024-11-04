@@ -3,7 +3,6 @@ import TaskItem from './TaskItem';
 
 function Column({ status, tasks, addTask, deleteTask }) {
   return (
-    <>
       <div
         className="column"
       >
@@ -12,13 +11,30 @@ function Column({ status, tasks, addTask, deleteTask }) {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              const taskContent = e.target.elements.taskInput.value;
-              if (taskContent) addTask(taskContent);
-              e.target.reset();
+              const taskTitle = e.target.elements.taskTitle.value;
+              const taskDescription = e.target.elements.taskDescription.value;
+              if (taskTitle) {
+                addTask({ title: taskTitle, description: taskDescription });
+                e.target.reset();
+              }
             }}
           >
-            <button type="submit">+</button>
-            <input type="text" name="taskInput" placeholder="Add a task" />
+            <button className="add-button" type="submit">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" strokeWidth={1} stroke="currentColor" className="size-6">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+              </svg>
+</button>
+            <input
+              type="text"
+              name="taskTitle"
+              placeholder="Task title (Required)"
+              required
+            />
+            <input
+              type="text"
+              name="taskDescription"
+              placeholder="Task description"
+            />
           </form>
         )}
         {tasks.map((task, index) => (
@@ -30,7 +46,6 @@ function Column({ status, tasks, addTask, deleteTask }) {
           />
         ))}
       </div>
-    </>
   );
 }
 
