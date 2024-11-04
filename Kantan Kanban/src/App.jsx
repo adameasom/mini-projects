@@ -1,6 +1,5 @@
 // App.jsx
 import React, { useState, useEffect } from 'react';
-import { DragDropContext } from 'react-beautiful-dnd';
 import Column from './components/Column';
 import './App.css';
 
@@ -29,33 +28,19 @@ function App() {
     setTasks(tasks.filter(task => task.id !== id));
   };
 
-  const handleDragEnd = (result) => {
-    const { source, destination } = result;
-    if (!destination) return;
-
-    const updatedTasks = Array.from(tasks);
-    const [movedTask] = updatedTasks.splice(source.index, 1);
-    movedTask.status = destination.droppableId;
-    updatedTasks.splice(destination.index, 0, movedTask);
-
-    setTasks(updatedTasks);
-  };
-
   return (
     <div className="App">
-      <DragDropContext onDragEnd={handleDragEnd}>
-        <div className="columns-container">
-          {['To Do', 'In Progress', 'Done'].map((status) => (
-            <Column
-              key={status}
-              status={status}
-              tasks={tasks.filter(task => task.status === status)}
-              addTask={addTask}
-              deleteTask={deleteTask}
-            />
-          ))}
-        </div>
-      </DragDropContext>
+      <div className="columns-container">
+        {['To Do', 'In Progress', 'Done'].map((status) => (
+          <Column
+            key={status}
+            status={status}
+            tasks={tasks.filter(task => task.status === status)}
+            addTask={addTask}
+            deleteTask={deleteTask}
+          />
+        ))}
+      </div>
     </div>
   );
 }
