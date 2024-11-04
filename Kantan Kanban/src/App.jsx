@@ -29,7 +29,8 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className="app-container">
+      <h1 className="app-header">Kantan Kanban</h1>
       <div className="columns-container">
         {['To Do', 'In Progress', 'Done'].map((status) => (
           <Column
