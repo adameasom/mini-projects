@@ -4,6 +4,17 @@ body {
   padding: 0;
 }
 
+@keyframes slideIn {
+  from {
+    transform: translateX(-100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
 .app-container {
   width: 100vw;
   height: 100vh;
@@ -33,7 +44,6 @@ body {
 
 .column {
   width: 80vw; /* 80% of the viewport width on mobile */
-  overflow-y: auto;
   background-color: rgb(255, 255, 255);
   border-radius: 8px;
   padding: 16px;
@@ -61,6 +71,7 @@ body {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  transition: 0.5s;
 }
 
 .add-button svg {
@@ -83,15 +94,22 @@ body {
   cursor: not-allowed;
 }
 
+.tasks-container {
+  height: 86%;
+  overflow-y: auto;
+}
+
 .task-item {
   display: flex;
   flex-direction: column;
   background-color: rgb(247, 247, 247);
   padding: 10px;
-  margin-top: 16px;
+  margin: 16px 2px;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   transition: 0.5s;
+  animation: slideIn 0.8s ease forwards;
+
 }
 .task-item:hover {
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.5);
