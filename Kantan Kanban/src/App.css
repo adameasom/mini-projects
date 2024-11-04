@@ -13,6 +13,7 @@ body {
 }
 
 .columns-container {
+  height: 100vh;
   display: flex;
   overflow-x: auto;
   padding: 20px;
@@ -21,7 +22,6 @@ body {
 
 .column {
   width: 80vw; /* 80% of the viewport width on mobile */
-  height: 94vh;
   overflow-y: auto;
   background-color: #fff;
   border-radius: 8px;
