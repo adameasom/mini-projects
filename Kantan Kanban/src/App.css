@@ -118,6 +118,7 @@ body {
   transition: 0.5s;
   animation: slideIn 0.5s ease-in-out;
 }
+
 .task-item:hover {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   transform: translateY(-1px);
@@ -150,6 +151,11 @@ body {
 .date-created {
   font-size: 0.6em;
   color: rgb(136, 136, 136);
+  transition: 0.3s;
+}
+
+.date-created.fade {
+  opacity: 0.1;
 }
 
 .delete-button {
@@ -187,7 +193,6 @@ body {
   opacity: 0;
   gap: 8px;
   transition: opacity 0.3s ease, transform 0.3s ease;
-  z-index: 10;
   pointer-events: none;
 }
 
@@ -196,6 +201,8 @@ body {
   transform: translateX(-32px);
   pointer-events: unset;
 }
+
+
 
 .confirm-delete,
 .confirm-cancel {
