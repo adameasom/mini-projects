@@ -35,7 +35,7 @@ function App() {
     dateCreated: formattedDateTime, // Use the formatted date and time
   };
     
-    setTasks([...tasks, newTask]);
+    setTasks((prevTasks) => [newTask, ...prevTasks]);
     setTaskIdCounter(taskIdCounter + 1); // Increment Counter
   };
 
