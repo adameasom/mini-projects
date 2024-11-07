@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function TaskItem({ task, index, deleteTask }) {
+function TaskItem({ task, deleteTask, status }) {
   const [isConfirmVisible, setIsConfirmVisible] = useState(false);
 
   const handleDeleteClick = () => {
@@ -12,7 +12,7 @@ function TaskItem({ task, index, deleteTask }) {
   };
 
   const handleConfirmDelete = () => {
-    deleteTask(task.id); // Call delete function
+    deleteTask(task.id, status); // Call delete function
     setIsConfirmVisible(false); // Hide confirmation box after deletion
   };
 
