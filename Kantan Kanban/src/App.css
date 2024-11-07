@@ -4,15 +4,6 @@ body {
   padding: 0;
 }
 
-@keyframes slideIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
 .app-container {
   width: 100vw;
   height: 100vh;
@@ -42,6 +33,7 @@ body {
 
 .column {
   width: 80vw; /* 80% of the viewport width on mobile */
+  height: 100%;
   background-color: rgb(255, 255, 255);
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -86,6 +78,7 @@ body {
   border: none;
   border-bottom: 1px solid rgba(51, 51, 51, 0.3);
   outline: none;
+  transition: 0.5s;
 }
 
 .column input[type="text"]:focus-within {
@@ -102,7 +95,7 @@ body {
 }
 
 .tasks-container {
-  height: 81%;
+  height: 80%;
   overflow-y: auto;
   padding: 0 16px;
 }
@@ -112,17 +105,13 @@ body {
   flex-direction: column;
   background-color: rgb(247, 247, 247);
   padding: 10px;
-  margin: 16px 2px;
   border-radius: 4px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-  transition: 0.5s;
-  animation: slideIn 0.5s ease-in-out;
 }
 
 .task-item:hover {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   transform: translateY(-1px);
-
 }
 
 .task-title,
