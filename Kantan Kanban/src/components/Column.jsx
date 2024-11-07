@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Draggable } from '@hello-pangea/dnd';
 import TaskItem from './TaskItem';
 
 function Column({ status, tasks, addTask, deleteTask }) {
@@ -44,12 +45,17 @@ function Column({ status, tasks, addTask, deleteTask }) {
         </div>
         <div className="tasks-container">
           {tasks.map((task, index) => (
-            <TaskItem
-              key={task.id}
-              task={task}
-              index={index}
-              deleteTask={deleteTask}
-            />
+            <Draggable key={task.id} draggableId={String(task.id)} index={index}>
+              {(provided) => (
+                <div
+                  ref={provided.innerRef}
+                  {...provided.draggableProps}
+                  {...provided.dragHandleProps}
+                >
+                  <TaskItem task={task} deleteTask={deleteTask} status={status} />
+                </div>
+              )}
+            </Draggable>
           ))}
         </div>
       </div>
