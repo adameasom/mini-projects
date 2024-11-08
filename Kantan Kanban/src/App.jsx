@@ -43,7 +43,7 @@ function App() {
       ...prevTasks,
       'To Do': [newTask, ...prevTasks['To Do']],
     }));
-    setTaskIdCounter(taskIdCounter + 1); // Increment counter
+    setTaskIdCounter((prevId) => prevId + 1); // Increment counter
   };
 
   const deleteTask = (id, status) => {
@@ -56,36 +56,23 @@ function App() {
   // Handle drag-and-drop events
   const onDragEnd = (result) => {
     const { source, destination } = result;
-  
-    // If there's no destination, exit
-    if (!destination) return;
-  
-    // If dropped in the same position, do nothing
-    if (
-      source.droppableId === destination.droppableId &&
-      source.index === destination.index
-    ) {
-      return;
+
+    if (!destination || (source.droppableId === destination.droppableId && source.index === destination.index)) {
+      return; // Exit if dropped outside or in the same position
     }
-  
+
     setTasks((prevTasks) => {
-      const sourceColumnTasks = Array.from(prevTasks[source.droppableId]);
-      const destinationColumnTasks =
-        source.droppableId === destination.droppableId
-          ? sourceColumnTasks
-          : Array.from(prevTasks[destination.droppableId]);
-  
-      // Remove the task from the source column
-      const [movedTask] = sourceColumnTasks.splice(source.index, 1);
-  
-      // Add the task to the destination column
-      destinationColumnTasks.splice(destination.index, 0, movedTask);
-  
-      // Create a new state object with updated columns
+      const sourceTasks = Array.from(prevTasks[source.droppableId]);
+      const destinationTasks = source.droppableId === destination.droppableId ? sourceTasks : Array.from(prevTasks[destination.droppableId]);
+      const [movedTask] = sourceTasks.splice(source.index, 1); // Remove from source
+
+      destinationTasks.splice(destination.index, 0, movedTask); // Insert into destination
+
+      // Return updated task columns
       return {
         ...prevTasks,
-        [source.droppableId]: sourceColumnTasks,
-        [destination.droppableId]: destinationColumnTasks,
+        [source.droppableId]: sourceTasks,
+        [destination.droppableId]: destinationTasks,
       };
     });
   };
@@ -109,7 +96,9 @@ function App() {
                     addTask={addTask}
                     deleteTask={deleteTask}
                   />
-                  {provided.placeholder}
+                  <div>
+                    {provided.placeholder}
+                  </div>
                 </div>
               )}
             </Droppable>
