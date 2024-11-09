@@ -6,7 +6,7 @@ function Column({ status, tasks, addTask, deleteTask }) {
   const [taskTitle, setTaskTitle] = useState('');
 
   return (
-      <div className="column">
+      <>
         <div className="column-header">
           <h2>{status}</h2>
           {status === 'To Do' && (
@@ -46,11 +46,12 @@ function Column({ status, tasks, addTask, deleteTask }) {
         <div className="tasks-container">
           {tasks.map((task, index) => (
             <Draggable key={task.id} draggableId={String(task.id)} index={index}>
-              {(provided) => (
+              {(provided, snapshot) => (
                 <div
                   ref={provided.innerRef}
                   {...provided.draggableProps}
                   {...provided.dragHandleProps}
+                  className={`task-item ${snapshot.isDragging ? "dragging" : ""}`}
                 >
                   <TaskItem task={task} deleteTask={deleteTask} status={status} />
                 </div>
@@ -58,7 +59,7 @@ function Column({ status, tasks, addTask, deleteTask }) {
             </Draggable>
           ))}
         </div>
-      </div>
+      </>
   );
 }
 
