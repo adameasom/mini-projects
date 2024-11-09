@@ -1,0 +1,6 @@
+.custom-tooltip {
+    width: fit-content;
+    white-space: nowrap;
+    padding: 6px 10px;
+    font-size: 0.6rem;
+}
