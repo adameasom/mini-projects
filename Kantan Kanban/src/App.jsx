@@ -20,7 +20,7 @@ function App() {
     localStorage.setItem('taskIdCounter', taskIdCounter);
   }, [tasks, taskIdCounter]);
 
-  const addTask = ({ title, description }) => {
+  const addTask = ({ title, description, status }) => {
     const now = new Date();
     // Get the components for the formatted date and time
     const optionsTime = { hour: '2-digit', minute: '2-digit', hour12: false };
@@ -37,12 +37,12 @@ function App() {
       id: taskIdCounter,
       title,
       description,
-      status: 'To Do',
+      status,
       dateCreated: formattedDateTime, // Use the formatted date and time
     };
     setTasks((prevTasks) => ({
       ...prevTasks,
-      'To Do': [newTask, ...prevTasks['To Do']],
+      [status]: [newTask, ...prevTasks[status]],
     }));
     setTaskIdCounter((prevId) => prevId + 1); // Increment counter
   };
