@@ -41,6 +41,8 @@ body {
 
 .column-header {
   padding: 16px 16px 0 16px;
+  flex-shrink: 0;
+  height: 111px;
 }
 
 .column h2 {
@@ -97,7 +99,8 @@ body {
 .tasks-container {
   display: flex;
   flex-direction: column;
-  height: 81%;
+  flex-grow: 1;
+  height: calc(100% - 111px);
   padding: 10px 16px;
   overflow-y: auto;
 }
