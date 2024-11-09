@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { DragDropContext, Droppable } from '@hello-pangea/dnd';
 import Column from './components/Column';
 import './App.css';
+import './Custom-tooltip-styles.css';
 
 function App() {
   // Load initial state from local storage or set default values
