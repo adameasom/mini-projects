@@ -122,6 +122,11 @@ body {
   opacity: 0.5;
 }
 
+.task-item.removing {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
 .task-title,
 .task-description {
   text-align: left;
