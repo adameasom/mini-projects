@@ -17,7 +17,7 @@ function TaskItem({ task, deleteTask, status }) {
   };
 
   return (
-    <div className="task-item">
+    <>
       <h3 className="task-title">{task.title}</h3>
       <p className="task-description">{task.description}</p>
       <div className="task-footer">
@@ -32,7 +32,7 @@ function TaskItem({ task, deleteTask, status }) {
           <button className="confirm-cancel" onClick={handleCancel}>Cancel</button>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
