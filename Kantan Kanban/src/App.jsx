@@ -68,31 +68,42 @@ function App() {
   // Handle drag-and-drop events
   const onDragEnd = (result) => {
     const { source, destination } = result;
-
+  
+    // If the task was dropped outside or in the same position, do nothing
     if (!destination || (source.droppableId === destination.droppableId && source.index === destination.index)) {
-      return; // Exit if dropped outside or in the same position
+      return;
     }
-
-    setTasks((prevTasks) => {
-      const sourceTasks = Array.from(prevTasks[source.droppableId]);
-      const destinationTasks = source.droppableId === destination.droppableId ? sourceTasks : Array.from(prevTasks[destination.droppableId]);
-      const [movedTask] = sourceTasks.splice(source.index, 1); // Remove from source
-
-      destinationTasks.splice(destination.index, 0, movedTask); // Insert into destination
-
-      // Return updated task columns
-      return {
-        ...prevTasks,
-        [source.droppableId]: sourceTasks,
-        [destination.droppableId]: destinationTasks,
-      };
-    });
+  
+    // Handle moving the task between columns
+    const sourceColumn = source.droppableId;
+    const destinationColumn = destination.droppableId;
+  
+    // Copy the tasks from the source and destination columns
+    const sourceTasks = Array.from(tasks[sourceColumn]);
+    const destinationTasks = Array.from(tasks[destinationColumn]);
+  
+    // Remove the task from the source column
+    const [movedTask] = sourceTasks.splice(source.index, 1);
+  
+    // Update the task's status to reflect the new column
+    movedTask.status = destinationColumn;
+  
+    // Add the task to the destination column at the new position
+    destinationTasks.splice(destination.index, 0, movedTask);
+  
+    // Update the state with the new task positions and statuses
+    setTasks((prevTasks) => ({
+      ...prevTasks,
+      [sourceColumn]: sourceTasks,
+      [destinationColumn]: destinationTasks,
+    }));
   };
+  
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className="app-container">
-        <h1 className="app-header">KANTAN KANBAN</h1>
+        <h1 className="app-header">Kantan Kanban</h1>
         <div className="columns-container">
           {['To Do', 'In Progress', 'Done'].map((status) => (
             <Droppable key={status} droppableId={status}>
@@ -100,7 +111,7 @@ function App() {
                 <div
                   ref={provided.innerRef}
                   {...provided.droppableProps}
-                  className="column"
+                  className={`column ${status.toLowerCase().replace(' ', '-')}`}
                 >
                   <Column
                     status={status}

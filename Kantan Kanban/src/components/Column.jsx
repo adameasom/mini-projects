@@ -51,7 +51,7 @@ function Column({ status, tasks, addTask, deleteTask }) {
                   ref={provided.innerRef}
                   {...provided.draggableProps}
                   {...provided.dragHandleProps}
-                  className={`task-item ${snapshot.isDragging ? "dragging" : ""} ${task.removing ? 'removing' : ''}`}
+                  className={`task-item ${task.status.toLowerCase().replace(' ', '-')} ${snapshot.isDragging ? "dragging" : ""} ${task.removing ? 'removing' : ''}`}
                 >
                   <TaskItem task={task} deleteTask={deleteTask} status={status} />
                 </div>
