@@ -10,7 +10,8 @@
 html, body {
   height: 100%;
   width: 100%;
-  font-family: Arial, sans-serif;
+  font-family: Outfit, Arial, sans-serif;
+  font-optical-sizing: auto;
   color: rgb(51, 51, 51);
   background-color: rgb(247, 247, 247);
 }
@@ -18,3 +19,4 @@ html, body {
 #root {
   display: flex;
 }
+
