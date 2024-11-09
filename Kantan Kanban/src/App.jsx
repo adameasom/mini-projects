@@ -22,15 +22,15 @@ function App() {
   const addTask = ({ title, description }) => {
     const now = new Date();
     // Get the components for the formatted date and time
-  const optionsTime = { hour: '2-digit', minute: '2-digit', hour12: false };
-  const optionsDate = { day: '2-digit', month: 'short', year: 'numeric' };
+    const optionsTime = { hour: '2-digit', minute: '2-digit', hour12: false };
+    const optionsDate = { day: '2-digit', month: 'short', year: 'numeric' };
 
-  // Format time and date separately
-  const formattedTime = now.toLocaleTimeString('en-GB', optionsTime);
-  const formattedDate = now.toLocaleDateString('en-GB', optionsDate);
+    // Format time and date separately
+    const formattedTime = now.toLocaleTimeString('en-GB', optionsTime);
+    const formattedDate = now.toLocaleDateString('en-GB', optionsDate);
 
-  // Combine them into the desired format
-  const formattedDateTime = `${formattedTime} on ${formattedDate}`;
+    // Combine them into the desired format
+    const formattedDateTime = `${formattedTime} on ${formattedDate}`;
 
     const newTask = {
       id: taskIdCounter,
@@ -47,10 +47,21 @@ function App() {
   };
 
   const deleteTask = (id, status) => {
+    // Add a class to trigger animation
     setTasks((prevTasks) => ({
       ...prevTasks,
-      [status]: prevTasks[status].filter((task) => task.id !== id),
+      [status]: prevTasks[status].map((task) =>
+        task.id === id ? { ...task, removing: true } : task
+      ),
     }));
+  
+    // After the animation delay, remove the task
+    setTimeout(() => {
+      setTasks((prevTasks) => ({
+        ...prevTasks,
+        [status]: prevTasks[status].filter((task) => task.id !== id),
+      }));
+    }, 500); // Adjust delay to match animation duration
   };
 
   // Handle drag-and-drop events
