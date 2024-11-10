@@ -69,35 +69,33 @@ function App() {
   const onDragEnd = (result) => {
     const { source, destination } = result;
   
-    // If the task was dropped outside or in the same position, do nothing
     if (!destination || (source.droppableId === destination.droppableId && source.index === destination.index)) {
-      return;
+      return; // Exit if dropped outside or in the same position
     }
   
-    // Handle moving the task between columns
-    const sourceColumn = source.droppableId;
-    const destinationColumn = destination.droppableId;
+    setTasks((prevTasks) => {
+      // Clone the tasks arrays from the source and destination columns
+      const sourceTasks = Array.from(prevTasks[source.droppableId]);
+      const destinationTasks = source.droppableId === destination.droppableId ? sourceTasks : Array.from(prevTasks[destination.droppableId]);
+      
+      // Remove the task from the source column
+      const [movedTask] = sourceTasks.splice(source.index, 1);
+      
+      // Update the status of the moved task to match the destination column
+      movedTask.status = destination.droppableId;
   
-    // Copy the tasks from the source and destination columns
-    const sourceTasks = Array.from(tasks[sourceColumn]);
-    const destinationTasks = Array.from(tasks[destinationColumn]);
+      // Insert the task into the new position in the destination column
+      destinationTasks.splice(destination.index, 0, movedTask);
   
-    // Remove the task from the source column
-    const [movedTask] = sourceTasks.splice(source.index, 1);
-  
-    // Update the task's status to reflect the new column
-    movedTask.status = destinationColumn;
-  
-    // Add the task to the destination column at the new position
-    destinationTasks.splice(destination.index, 0, movedTask);
-  
-    // Update the state with the new task positions and statuses
-    setTasks((prevTasks) => ({
-      ...prevTasks,
-      [sourceColumn]: sourceTasks,
-      [destinationColumn]: destinationTasks,
-    }));
+      // Return updated state with modified columns
+      return {
+        ...prevTasks,
+        [source.droppableId]: sourceTasks,
+        [destination.droppableId]: destinationTasks,
+      };
+    });
   };
+  
   
 
   return (
