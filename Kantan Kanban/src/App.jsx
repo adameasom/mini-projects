@@ -95,34 +95,39 @@ function App() {
       };
     });
   };
-  
-  
+
+  const onDragUpdate = (update) => {
+    const { destination } = update;
+    if (!destination) return;
+
+    const destinationTasksContainer = document.getElementById(`${destination.droppableId}-tasks-container`);
+
+    if (destinationTasksContainer) {
+      const { scrollTop, clientHeight, scrollHeight } = destinationTasksContainer;
+      const scrollThreshold = 50; // Threshold to trigger scrolling
+      const scrollSpeed = 5; // Speed of scrolling
+
+      if (scrollTop < scrollThreshold) {
+        destinationTasksContainer.scrollTop -= scrollSpeed; // Scroll up
+      } else if (scrollTop + clientHeight >= scrollHeight - scrollThreshold) {
+        destinationTasksContainer.scrollTop += scrollSpeed; // Scroll down
+      }
+    }
+  };
 
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
+    <DragDropContext onDragEnd={onDragEnd} onDragUpdate={onDragUpdate}>
       <div className="app-container">
         <h1 className="app-header">Kantan Kanban</h1>
         <div className="columns-container">
           {['To Do', 'In Progress', 'Done'].map((status) => (
-            <Droppable key={status} droppableId={status}>
-              {(provided) => (
-                <div
-                  ref={provided.innerRef}
-                  {...provided.droppableProps}
-                  className={`column ${status.toLowerCase().replace(' ', '-')}`}
-                >
-                  <Column
-                    status={status}
-                    tasks={tasks[status]}
-                    addTask={addTask}
-                    deleteTask={deleteTask}
-                  />
-                  <div>
-                    {provided.placeholder}
-                  </div>
-                </div>
-              )}
-            </Droppable>
+            <Column
+              key={status}
+              status={status}
+              tasks={tasks[status]}
+              addTask={addTask}
+              deleteTask={deleteTask}
+            />
           ))}
         </div>
       </div>
