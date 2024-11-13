@@ -3,7 +3,7 @@ import { Droppable, Draggable } from '@hello-pangea/dnd';
 import { Tooltip } from 'react-tooltip';
 import TaskItem from './TaskItem';
 
-function Column({ status, tasks, addTask, deleteTask }) {
+function Column({ status, tasks, addTask, deleteTask, updateTask }) {
   const [taskTitle, setTaskTitle] = useState('');
 
   return (
@@ -66,7 +66,7 @@ function Column({ status, tasks, addTask, deleteTask }) {
                     {...provided.dragHandleProps}
                     className={`task-item ${task.status.toLowerCase().replace(' ', '-')} ${snapshot.isDragging ? "dragging" : ""} ${task.removing ? 'removing' : ''}`}
                   >
-                    <TaskItem task={task} deleteTask={deleteTask} status={status} />
+                    <TaskItem task={task} deleteTask={deleteTask} updateTask={updateTask} status={status} />
                   </div>
                 )}
               </Draggable>

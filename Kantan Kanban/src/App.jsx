@@ -65,6 +65,20 @@ function App() {
     }, 500); // Adjust delay to match animation duration
   };
 
+  // Edit existing task
+  const updateTask = (id, updatedFields) => {
+    setTasks((prevTasks) => {
+      const updatedTasks = { ...prevTasks };
+      Object.keys(updatedTasks).forEach((status) => {
+        updatedTasks[status] = updatedTasks[status].map((task) =>
+          task.id === id ? { ...task, ...updatedFields } : task
+        );
+      });
+      return updatedTasks;
+    });
+  };
+  
+
   // Handle drag-and-drop events
   const onDragEnd = (result) => {
     const { source, destination } = result;
@@ -127,6 +141,7 @@ function App() {
               tasks={tasks[status]}
               addTask={addTask}
               deleteTask={deleteTask}
+              updateTask={updateTask}
             />
           ))}
         </div>

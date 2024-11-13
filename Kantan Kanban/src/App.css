@@ -112,7 +112,6 @@ button {
   border-radius: 0px;
   border-bottom: 1px solid rgba(51, 51, 51, 0.3);
   outline: none;
-  transition: 0.5s;
 }
 
 .column input[type="text"]:focus-within {
@@ -159,6 +158,66 @@ button {
   transition: opacity 0.5s ease;
 }
 
+.edit-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-box input[type="text"] {
+  width: 95%;
+  background-color: transparent;
+  color: rgb(126, 126, 126);
+  font-size: 1rem;
+  padding: 0px;
+  margin-bottom: 8px;
+  border: none;
+  border-radius: 0px;
+  outline: none;
+  white-space: pre-wrap;
+}
+
+.edit-box input[type="text"]:focus-within {
+  border-bottom: unset;
+}
+
+.edit-box .fake-button {
+  opacity: 0.3;
+  cursor: default !important;
+  pointer-events: none !important;
+}
+
+.edit-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.edit-desc-input {
+  font-weight: 200;
+}
+
+.edit-buttons-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.edit-save-or-cancel {
+  display: flex;
+  align-self: center;
+}
+
+.edit-save {
+  color: rgb(75, 207, 75);
+  margin-right: 8px;
+}
+
+.title-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
 .task-title,
 .task-description {
   text-align: left;
@@ -168,20 +227,39 @@ button {
 .task-title {
   font-size: 1rem;
   font-weight: 500;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
+}
+
+.my-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  color: rgb(51, 51, 51);
+  border: none;
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.my-button svg {
+  width: 16px;
+  height: 16px;
 }
 
 .task-description {
-  font-size: 0.8rem;
+  font-size: 1rem;
   font-weight: 200;
   white-space: pre-wrap;
 }
 
 .task-footer {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  position: relative;
+  margin-top: 8px;
 }
 
 .date-created {
@@ -194,29 +272,9 @@ button {
   opacity: 0.1;
 }
 
-.delete-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 24px;
-  height: 24px;
-  background-color: transparent;
-  color: rgb(51, 51, 51);
-  border: none;
-  border-radius: 4px;
-  outline: none;
-  transition: 0.5s;
-  cursor: pointer;
-}
-
-.delete-button svg {
-  width: 16px;
-  height: 16px;
-}
-
 .confirmation-box {
   position: absolute;
-  top: 0;
+  top: -3px;
   right: 0px;
   display: flex;
   align-items: center;
@@ -233,12 +291,12 @@ button {
   opacity: 1;
   transform: translateX(-32px);
   pointer-events: unset;
+  z-index: 10;
 }
 
-.confirm-delete,
-.confirm-cancel {
+.my-text-button {
   background-color: transparent;
-  padding: 4px 8px;
+  padding: 2px 8px;
   border: none;
   border-radius: 4px;
   font-size: 0.6rem;
@@ -249,11 +307,9 @@ button {
   color: rgb(220, 53, 69);
 }
 
-.confirm-cancel {
+.confirm-cancel .edit-cancel {
   color: rgb(108, 117, 125);
 }
-
-
 
 @media only screen and (min-width: 768px) {
   .columns-container {
@@ -272,11 +328,9 @@ button {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     cursor: grab;
   }
-  .delete-button:hover {
-    background-color: rgba(255, 255, 255, 0.4);
-  }
-  .confirm-delete:hover,
-  .confirm-cancel:hover {
+  .edit-button:hover,
+  .delete-button:hover,
+  .my-text-button:hover {
     background-color: rgba(255, 255, 255, 0.4);
   }
 }
