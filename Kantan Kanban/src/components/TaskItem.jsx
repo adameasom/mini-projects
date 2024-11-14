@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Tooltip } from 'react-tooltip';
 
-function TaskItem({ task, deleteTask, updateTask, status }) {
+function TaskItem({ task, deleteTask, updateTask, status, handleVibration }) {
   const [isConfirmVisible, setIsConfirmVisible] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editedTitle, setEditedTitle] = useState(task.title);
@@ -41,6 +41,7 @@ function TaskItem({ task, deleteTask, updateTask, status }) {
         <div className="edit-box">
           <div className="edit-title">
             <input
+              className="edit-title-input"
               type="text"
               value={editedTitle}
               onChange={(e) => setEditedTitle(e.target.value)}
@@ -59,8 +60,8 @@ function TaskItem({ task, deleteTask, updateTask, status }) {
           />
           <div className="edit-buttons-box">
             <div className="edit-save-or-cancel">
-              <button className="edit-save my-text-button" onClick={handleSaveEditClick}>Save</button>
-              <button className="edit-cancel my-text-button" onClick={handleCancelEditClick}>Cancel</button>
+              <button className="edit-save my-text-button" onClick={() => { handleSaveEditClick; handleVibration(50); }}>Save</button>
+              <button className="edit-cancel my-text-button" onClick={() => { handleCancelEditClick; handleVibration(20); }}>Cancel</button>
             </div>
             <button className="fake-button my-button">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="16" height="16" strokeWidth={1} stroke="currentColor" className="size-6">
@@ -75,7 +76,7 @@ function TaskItem({ task, deleteTask, updateTask, status }) {
             <h3 className="task-title">{task.title}</h3>
             <button
               className="edit-button my-button"
-              onClick={handleEditClick}
+              onClick={() => { handleEditClick(); handleVibration(20); }}
               data-tooltip-id={`my-edit-${task.id}`}
               data-tooltip-content="Edit Task"
               data-tooltip-place="top"
@@ -91,7 +92,7 @@ function TaskItem({ task, deleteTask, updateTask, status }) {
             <span className={`date-created ${isConfirmVisible ? 'fade' : ''}`}>created at {task.dateCreated}</span>
             <button
               className="delete-button my-button"
-              onClick={handleDeleteClick}
+              onClick={() => { handleDeleteClick; handleVibration(20); }}
               data-tooltip-id={`my-delete-${task.id}`}
               data-tooltip-content="Delete Task"
               data-tooltip-place="top-start"
@@ -102,8 +103,8 @@ function TaskItem({ task, deleteTask, updateTask, status }) {
             </button>
             <Tooltip id={`my-delete-${task.id}`} className="custom-tooltip" />
             <div className={`confirmation-box ${isConfirmVisible ? 'show' : ''}`}>
-              <button className="confirm-delete my-text-button" onClick={handleConfirmDelete}>Delete</button>
-              <button className="confirm-cancel my-text-button" onClick={handleCancel}>Cancel</button>
+              <button className="confirm-delete my-text-button" onClick={() => { handleConfirmDelete; handleVibration(150); }}>Delete</button>
+              <button className="confirm-cancel my-text-button" onClick={() => { handleCancel; handleVibration(20); }}>Cancel</button>
             </div>
           </div>
         </div>

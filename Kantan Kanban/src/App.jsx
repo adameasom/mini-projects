@@ -21,6 +21,7 @@ function App() {
   }, [tasks, taskIdCounter]);
 
   const addTask = ({ title, description, status }) => {
+    handleVibration(50); // Vibration to indicate successfully adding a task
     const now = new Date();
     // Get the components for the formatted date and time
     const optionsTime = { hour: '2-digit', minute: '2-digit', hour12: false };
@@ -78,9 +79,14 @@ function App() {
     });
   };
   
+  // Vibration on drag start
+  const onDragStart = () => {
+    handleVibration(20); // Short vibration to signal the start of dragging
+  };
 
   // Handle drag-and-drop events
   const onDragEnd = (result) => {
+    handleVibration(50); // Longer vibration to indicate drop action
     const { source, destination } = result;
   
     if (!destination || (source.droppableId === destination.droppableId && source.index === destination.index)) {
@@ -129,8 +135,14 @@ function App() {
     }
   };
 
+  const handleVibration = (duration = 50) => {
+    if (navigator.vibrate) {
+      navigator.vibrate(duration);
+    }
+  };
+
   return (
-    <DragDropContext onDragEnd={onDragEnd} onDragUpdate={onDragUpdate}>
+    <DragDropContext onDragStart={onDragStart} onDragEnd={onDragEnd} onDragUpdate={onDragUpdate}>
       <div className="app-container">
         <h1 className="app-header">Kantan Kanban</h1>
         <div className="columns-container">
@@ -142,6 +154,7 @@ function App() {
               addTask={addTask}
               deleteTask={deleteTask}
               updateTask={updateTask}
+              handleVibration={handleVibration}
             />
           ))}
         </div>
