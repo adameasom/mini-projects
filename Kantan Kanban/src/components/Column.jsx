@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import { Droppable, Draggable } from '@hello-pangea/dnd';
 import { Tooltip } from 'react-tooltip';
 import TaskItem from './TaskItem';
@@ -58,25 +58,27 @@ function Column({ status, tasks, addTask, deleteTask, updateTask, handleVibratio
             {...provided.droppableProps}
             className="tasks-container"
           >
-            {useMemo(
-              () =>
-                tasks.map((task, index) => (
-                  <Draggable key={task.id} draggableId={String(task.id)} index={index}>
-                    {(provided, snapshot) => (
-                      <div
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                        className={`task-item ${task.status.toLowerCase().replace(' ', '-')} ${snapshot.isDragging ? "dragging" : ""} ${task.removing ? 'removing' : ''}`}
-                      >
-                        <TaskItem task={task} deleteTask={deleteTask} updateTask={updateTask} status={status} handleVibration={handleVibration} />
-                      </div>
-                    )}
-                  </Draggable>
-                )),
-              [tasks, deleteTask, updateTask, status, handleVibration]
+            {tasks.length === 0 ? (
+              <div className="empty-tasks">
+                <p>There are no tasks {status.toLowerCase()}.</p>
+              </div>
+            ) : (
+              tasks.map((task, index) => (
+                <Draggable key={task.id} draggableId={String(task.id)} index={index}>
+                  {(provided, snapshot) => (
+                    <div
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                      className={`task-item ${task.status.toLowerCase().replace(' ', '-')} ${snapshot.isDragging ? "dragging" : ""} ${task.removing ? 'removing' : ''}`}
+                    >
+                      <TaskItem task={task} deleteTask={deleteTask} updateTask={updateTask} status={status} handleVibration={handleVibration} />
+                    </div>
+                  )}
+                </Draggable>
+              ))
             )}
-          {provided.placeholder}
+            {provided.placeholder}
           </div>
         )}
       </Droppable>
