@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Droppable, Draggable } from '@hello-pangea/dnd';
 import { Tooltip } from 'react-tooltip';
 import TaskItem from './TaskItem';
@@ -13,6 +13,7 @@ function Column({ status, tasks, addTask, deleteTask, updateTask, handleVibratio
         <form
           onSubmit={(e) => {
             e.preventDefault();
+            handleVibration(50); // Vibration to indicate successfully adding a task
             const taskTitle = e.target.elements.taskTitle.value;
             const taskDescription = e.target.elements.taskDescription.value;
             if (taskTitle) {
@@ -49,7 +50,7 @@ function Column({ status, tasks, addTask, deleteTask, updateTask, handleVibratio
           />
         </form>
       </div>
-      <Droppable droppableId={status}>
+      <Droppable droppableId={status || "default"}>
         {(provided) => (
           <div
             id={`${status}-tasks-container`}
@@ -57,20 +58,24 @@ function Column({ status, tasks, addTask, deleteTask, updateTask, handleVibratio
             {...provided.droppableProps}
             className="tasks-container"
           >
-            {tasks.map((task, index) => (
-              <Draggable key={task.id} draggableId={String(task.id)} index={index}>
-                {(provided, snapshot) => (
-                  <div
-                    ref={provided.innerRef}
-                    {...provided.draggableProps}
-                    {...provided.dragHandleProps}
-                    className={`task-item ${task.status.toLowerCase().replace(' ', '-')} ${snapshot.isDragging ? "dragging" : ""} ${task.removing ? 'removing' : ''}`}
-                  >
-                    <TaskItem task={task} deleteTask={deleteTask} updateTask={updateTask} status={status} handleVibration={handleVibration} />
-                  </div>
-                )}
-              </Draggable>
-            ))}
+            {useMemo(
+              () =>
+                tasks.map((task, index) => (
+                  <Draggable key={task.id} draggableId={String(task.id)} index={index}>
+                    {(provided, snapshot) => (
+                      <div
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        className={`task-item ${task.status.toLowerCase().replace(' ', '-')} ${snapshot.isDragging ? "dragging" : ""} ${task.removing ? 'removing' : ''}`}
+                      >
+                        <TaskItem task={task} deleteTask={deleteTask} updateTask={updateTask} status={status} handleVibration={handleVibration} />
+                      </div>
+                    )}
+                  </Draggable>
+                )),
+              [tasks, deleteTask, updateTask, status, handleVibration]
+            )}
           {provided.placeholder}
           </div>
         )}
