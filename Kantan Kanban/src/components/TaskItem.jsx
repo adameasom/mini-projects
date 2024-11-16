@@ -8,28 +8,34 @@ function TaskItem({ task, deleteTask, updateTask, status, handleVibration }) {
   const [editedDescription, setEditedDescription] = useState(task.description);
 
   const handleDeleteClick = () => {
+    handleVibration(20);
     setIsConfirmVisible(true); // Show confirmation box
   };
 
   const handleCancel = () => {
+    handleVibration(20);
     setIsConfirmVisible(false); // Hide confirmation box
   };
 
   const handleConfirmDelete = () => {
+    handleVibration(150);
     deleteTask(task.id, status); // Call delete function
     setIsConfirmVisible(false); // Hide confirmation box after deletion
   };
 
   const handleEditClick = () => {
+    handleVibration(20);
     setIsEditing(true);
   }
 
   const handleSaveEditClick = () => {
+    handleVibration(50);
     updateTask(task.id, { title: editedTitle, description: editedDescription });
     setIsEditing(false);
   }
 
   const handleCancelEditClick = () => {
+    handleVibration(20);
     setIsEditing(false);
     setEditedTitle(task.title); // Reset to original title
     setEditedDescription(task.description); // Reset to original description if it exists
@@ -60,8 +66,8 @@ function TaskItem({ task, deleteTask, updateTask, status, handleVibration }) {
           />
           <div className="edit-buttons-box">
             <div className="edit-save-or-cancel">
-              <button className="edit-save my-text-button" onClick={() => { handleSaveEditClick(); handleVibration(50); }}>Save</button>
-              <button className="edit-cancel my-text-button" onClick={() => { handleCancelEditClick(); handleVibration(20); }}>Cancel</button>
+              <button className="edit-save my-text-button" onClick={handleSaveEditClick}>Save</button>
+              <button className="edit-cancel my-text-button" onClick={handleCancelEditClick}>Cancel</button>
             </div>
             <button className="fake-button my-button">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="16" height="16" strokeWidth={1} stroke="currentColor" className="size-6">
@@ -76,7 +82,7 @@ function TaskItem({ task, deleteTask, updateTask, status, handleVibration }) {
             <h3 className="task-title">{task.title}</h3>
             <button
               className="edit-button my-button"
-              onClick={() => { handleEditClick(); handleVibration(20); }}
+              onClick={handleEditClick}
               data-tooltip-id={`my-edit-${task.id}`}
               data-tooltip-content="Edit Task"
               data-tooltip-place="top"
@@ -92,7 +98,7 @@ function TaskItem({ task, deleteTask, updateTask, status, handleVibration }) {
             <span className={`date-created ${isConfirmVisible ? 'fade' : ''}`}>created at {task.dateCreated}</span>
             <button
               className="delete-button my-button"
-              onClick={() => { handleDeleteClick(); handleVibration(20); }}
+              onClick={handleDeleteClick}
               data-tooltip-id={`my-delete-${task.id}`}
               data-tooltip-content="Delete Task"
               data-tooltip-place="top-start"
@@ -103,8 +109,8 @@ function TaskItem({ task, deleteTask, updateTask, status, handleVibration }) {
             </button>
             <Tooltip id={`my-delete-${task.id}`} className="custom-tooltip" />
             <div className={`confirmation-box ${isConfirmVisible ? 'show' : ''}`}>
-              <button className="confirm-delete my-text-button" onClick={() => { handleConfirmDelete(); handleVibration(150); }}>Delete</button>
-              <button className="confirm-cancel my-text-button" onClick={() => { handleCancel(); handleVibration(20); }}>Cancel</button>
+              <button className="confirm-delete my-text-button" onClick={handleConfirmDelete}>Delete</button>
+              <button className="confirm-cancel my-text-button" onClick={handleCancel}>Cancel</button>
             </div>
           </div>
         </div>
