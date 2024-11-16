@@ -1,6 +1,6 @@
 // App.jsx
 import React, { useState, useEffect } from 'react';
-import { DragDropContext, Droppable } from '@hello-pangea/dnd';
+import { DragDropContext } from '@hello-pangea/dnd';
 import Column from './components/Column';
 import './App.css';
 import './Custom-tooltip-styles.css';
@@ -20,8 +20,13 @@ function App() {
     localStorage.setItem('taskIdCounter', taskIdCounter);
   }, [tasks, taskIdCounter]);
 
+  const handleVibration = (duration = 50) => {
+    if (navigator.vibrate) {
+      navigator.vibrate(duration);
+    }
+  };
+
   const addTask = ({ title, description, status }) => {
-    handleVibration(50); // Vibration to indicate successfully adding a task
     const now = new Date();
     // Get the components for the formatted date and time
     const optionsTime = { hour: '2-digit', minute: '2-digit', hour12: false };
@@ -132,12 +137,6 @@ function App() {
       } else if (scrollTop + clientHeight >= scrollHeight - scrollThreshold) {
         destinationTasksContainer.scrollTop += scrollSpeed; // Scroll down
       }
-    }
-  };
-
-  const handleVibration = (duration = 50) => {
-    if (navigator.vibrate) {
-      navigator.vibrate(duration);
     }
   };
 
