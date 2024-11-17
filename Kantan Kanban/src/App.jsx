@@ -6,13 +6,32 @@ import './App.css';
 import './Custom-tooltip-styles.css';
 
 function App() {
+  
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
   // Load initial state from local storage or set default values
   const [tasks, setTasks] = useState(() => {
     const storedTasks = JSON.parse(localStorage.getItem('tasks'));
     return storedTasks || { 'To Do': [], 'In Progress': [], 'Done': [] };
   });
-
+  
   const [taskIdCounter, setTaskIdCounter] = useState(() => Number(localStorage.getItem('taskIdCounter')) || 1);
+
+  // Save users theme to local storage
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark") {
+      setIsDarkMode(true);
+      document.body.classList.add("dark-mode");
+    }
+  }, []);
+
+  const toggleDarkMode = () => {
+    const newMode = !isDarkMode;
+    setIsDarkMode(newMode);
+    localStorage.setItem("theme", newMode ? "dark" : "light");
+    document.body.classList.toggle("dark-mode", newMode);
+  };
 
   // Save tasks and counter to local storage whenever they change
   useEffect(() => {
@@ -143,7 +162,17 @@ function App() {
   return (
     <DragDropContext onDragStart={onDragStart} onDragEnd={onDragEnd} onDragUpdate={onDragUpdate}>
       <div className="app-container">
-        <h1 className="app-header">Kantan Kanban</h1>
+        <div className="app-header">
+          <h1 className="app-title">Kantan Kanban</h1>
+          <button
+          className="light-or-dark-button"
+            onClick={toggleDarkMode}
+            aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
+          >
+            {isDarkMode ? "☀️" : "🌙"}
+          </button>
+          
+        </div>
         <div className="columns-container">
           {['To Do', 'In Progress', 'Done'].map((status) => (
             <Column

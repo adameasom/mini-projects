@@ -1,12 +1,65 @@
+/* Light mode and default variables */
+:root {
+  --font-family: 'Outfit', Arial, sans-serif;
+  --text-color: rgb(51, 51, 51);
+  --background-color: rgb(247, 247, 247);
+  --button-background: rgb(238, 238, 238);
+  --border-color: rgba(51, 51, 51, 0.3);
+  --box-shadow: rgba(0, 0, 0, 0.1);
+
+  /* Column colors */
+  --todo-border: rgba(169, 199, 226, 0.7);
+  --in-progress-border: rgba(248, 184, 152, 0.7);
+  --done-border: rgba(166, 209, 182, 0.7);
+
+  /* Task background colors */
+  --todo-bg: rgba(169, 199, 226, 0.15);
+  --in-progress-bg: rgba(248, 184, 152, 0.15);
+  --done-bg: rgba(166, 209, 182, 0.15);
+
+  /* Text colors */
+  --secondary-text-color: rgb(136, 136, 136);
+  --error-color: rgb(220, 53, 69);
+  --cancel-color: rgb(108, 117, 125);
+  --success-color: rgb(75, 207, 75);
+}
+
+/* Dark mode variables */
+body.dark-mode {
+  --text-color: rgb(230, 230, 230);
+  --background-color: rgb(34, 34, 34);
+  --button-background: rgb(51, 51, 51);
+  --border-color: rgba(230, 230, 230, 0.3);
+  --box-shadow: rgba(0, 0, 0, 0.5);
+
+  /* Column colors */
+  --todo-border: rgba(90, 125, 155, 0.7);
+  --in-progress-border: rgba(180, 100, 80, 0.7);
+  --done-border: rgba(80, 125, 95, 0.7);
+
+  /* Task background colors */
+  --todo-bg: rgba(90, 125, 155, 0.15);
+  --in-progress-bg: rgba(180, 100, 80, 0.15);
+  --done-bg: rgba(80, 125, 95, 0.15);
+
+  /* Text colors */
+  --secondary-text-color: rgb(170, 170, 170);
+  --error-color: rgb(255, 77, 97);
+  --cancel-color: rgb(130, 140, 145);
+  --success-color: rgb(90, 250, 90);
+}
+
 body {
-  font-family: 'Outfit', Arial, sans-serif;
+  font-family: var(--font-family);
   margin: 0;
   padding: 0;
+  color: var(--text-color);
+  background-color: var(--background-color);
 }
 
 button {
-  font-family: 'Outfit', Arial, sans-serif;
-  color: rgb(51, 51, 51);
+  font-family: var(--font-family);
+  color: var(--text-color);
   -webkit-appearance: none; /* Remove default mobile browser styling (iOS and Android) */
   -moz-appearance: none; /* Remove default mobile browser styling for Firefox */
   appearance: none; /* Ensure the appearance is consistent across all browsers */
@@ -19,13 +72,35 @@ button {
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  background-color: rgb(247, 247, 247);
+  background-color: var(--background-color);
 }
 
 .app-header {
+  width: 100%;
   position: fixed;
   top: 0;
-  padding: 10px 0 0 40px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+  padding: 10px 20px 0 40px;
+  
+}
+
+.light-or-dark-button {
+  height: 32px;
+  width: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  border: 2px solid var(--text-color);
+  border-radius: 25%;
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+
+.app-title {
   text-align: left;
   font-size: 1.6rem;
   font-weight: 500;
@@ -43,9 +118,9 @@ button {
 .column {
   width: 80vw; /* 80% of the viewport width on mobile */
   height: 100%;
-  background-color: rgb(255, 255, 255);
+  background-color: var(--background-color);
+  box-shadow: 0 4px 8px var(--box-shadow);
   border-radius: 16px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .column h2 {
@@ -61,15 +136,15 @@ button {
 }
 
 .column.to-do {
-  border: 5px solid rgba(169, 199, 226, 0.7); /* Soft blue task */
+  border: 5px solid var(--todo-border); /* Soft blue task */
 }
 
 .column.in-progress {
-  border: 5px solid rgba(248, 184, 152, 0.7); /* Muted orange task */
+  border: 5px solid var(--in-progress-border); /* Muted orange task */
 }
 
 .column.done {
-  border: 5px solid rgba(166, 209, 182, 0.7); /* Soft green task */
+  border: 5px solid var(--done-border); /* Soft green task */
 }
 
 .column-header {
@@ -85,8 +160,8 @@ button {
   align-items: center;
   width: 32px;
   height: 32px;
-  background-color: rgb(238, 238, 238);
-  color: rgb(51, 51, 51);
+  background-color: var(--button-background);
+  color: var(--text-color);
   border: none;
   border-radius: 4px;
   outline: none;
@@ -106,6 +181,8 @@ button {
 }
 
 .column input[type="text"] {
+  background-color: transparent;
+  color: var(--text-color);
   font-family: 'Outfit', Arial, sans-serif;
   font-size: 1rem;
   padding: 8px;
@@ -139,23 +216,23 @@ button {
 .task-item {
   display: flex;
   flex-direction: column;
-  background-color: rgb(247, 247, 247);
+  background-color: var(--background-color);
   padding: 10px;
   margin: 8px 0;
   border-radius: 4px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 4px var(--box-shadow);
 }
 
 .task-item.to-do {
-  background-color: rgba(169, 199, 226, 0.15); /* Soft blue task */
+  background-color: var(--todo-bg); /* Soft blue task */
 }
 
 .task-item.in-progress {
-  background-color:  rgba(248, 184, 152, 0.15); /* Muted orange task */
+  background-color: var(--in-progress-bg); /* Muted orange task */
 }
 
 .task-item.done {
-  background-color:  rgba(166, 209, 182, 0.15); /* Soft green task */
+  background-color: var(--done-bg); /* Soft green task */
 }
 
 .task-item.dragging {
@@ -221,7 +298,7 @@ button {
 }
 
 .edit-save {
-  color: rgb(75, 207, 75);
+  color: var(--success-color);
   margin-right: 8px;
 }
 
@@ -248,7 +325,7 @@ button {
   justify-content: center;
   align-items: center;
   background-color: transparent;
-  color: rgb(51, 51, 51);
+  color: var(--text-color);
   border: none;
   border-radius: 4px;
   outline: none;
@@ -277,7 +354,7 @@ button {
 
 .date-created {
   font-size: 0.6em;
-  color: rgb(136, 136, 136);
+  color: var(--secondary-text-color);
   transition: 0.3s;
 }
 
@@ -317,11 +394,11 @@ button {
 }
 
 .confirm-delete {
-  color: rgb(220, 53, 69);
+  color: var(--error-color);
 }
 
 .confirm-cancel .edit-cancel {
-  color: rgb(108, 117, 125);
+  color: var(--cancel-color);
 }
 
 @media only screen and (min-width: 768px) {
@@ -335,7 +412,7 @@ button {
 
 @media (hover: hover) {
   .add-button:hover {
-    background-color: rgb(227, 227, 227);
+    background-color: var(--border-color);
   }
   .task-item:hover {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
