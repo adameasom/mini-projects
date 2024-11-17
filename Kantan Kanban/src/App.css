@@ -88,14 +88,14 @@ button {
 }
 
 .light-or-dark-button {
-  height: 32px;
-  width: 32px;
+  height: 28px;
+  width: 28px;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: transparent;
-  border: 2px solid var(--text-color);
-  border-radius: 25%;
+  border: none;
+  border-bottom: 2px solid var(--text-color);
   font-size: 1.3rem;
   cursor: pointer;
 }
