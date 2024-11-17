@@ -26,6 +26,7 @@ function Column({ status, tasks, addTask, deleteTask, updateTask, handleVibratio
           <button
             className="add-button"
             type="submit"
+            aria-label="Add a new task"
             disabled={!taskTitle}
             data-tooltip-id="my-add"
             data-tooltip-content="Add Task"
@@ -39,6 +40,7 @@ function Column({ status, tasks, addTask, deleteTask, updateTask, handleVibratio
             type="text"
             name="taskTitle"
             placeholder="Task title (Required)"
+            aria-label="Enter the task title"
             required
             value={taskTitle}
             onChange={(e) => setTaskTitle(e.target.value)}
@@ -47,6 +49,7 @@ function Column({ status, tasks, addTask, deleteTask, updateTask, handleVibratio
             type="text"
             name="taskDescription"
             placeholder="Task description"
+            aria-label="Enter the task description"
           />
         </form>
       </div>
