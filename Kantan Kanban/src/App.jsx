@@ -169,7 +169,7 @@ function App() {
           className="light-or-dark-button"
             onClick={toggleDarkMode}
             data-tooltip-id="my-mode"
-            data-tooltip-content={isDarkMode ? "Light Mode" : "Dark Mode"}
+            data-tooltip-content={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
             data-tooltip-place="left"
             aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
           >
