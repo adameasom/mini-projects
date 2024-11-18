@@ -421,7 +421,7 @@ button {
     background-color: var(--border-color);
   }
   .light-or-dark-button:hover .sun-icon {
-    color: orange;
+    color: rgb(255, 165, 0);
   }
   .light-or-dark-button:hover .moon-icon {
     color: rgb(0, 0, 0);
