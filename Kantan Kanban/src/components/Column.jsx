@@ -35,7 +35,7 @@ function Column({ status, tasks, addTask, deleteTask, updateTask, handleVibratio
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
             </svg>
           </button>
-          <Tooltip id="my-add" className="custom-tooltip" />
+          <Tooltip id="my-add" className="custom-tooltip" border="1px solid var(--tooltip-border)" />
           <input
             type="text"
             name="taskTitle"
